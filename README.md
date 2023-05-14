@@ -12,7 +12,7 @@ That environment uses Django 4.2.1 (https://www.djangoproject.com/).
 
 - Configuring the Django Framework:
 
-        docker compose run web django-admin startproject config.
+        docker compose run web django-admin startproject config .
 
 - Edit `config/settings.py`.
 
