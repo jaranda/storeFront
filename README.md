@@ -20,7 +20,7 @@ That environment uses Django 4.2.1 (https://www.djangoproject.com/).
   - Replace `DATABASE` with:
 
         DATABASES = {
-            default': {
+            'default': {
                 'ENGINE': 'django.db.backends.mysql',
                 'NAME': os.environ.get('MYSQL_NAME'),
                 'USER': os.environ.get('MYSQL_USER'),
