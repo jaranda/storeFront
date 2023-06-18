@@ -1,5 +1,9 @@
-Skeleton Django Application
-===========================
+# Skeleton Django Application
+
+Need to install Python 3.x
+Need to install pip (?)
+Create virtual environment:
+python -m venv .venv
 
 This Docker compose project creates a database container running MariaDB 10.11.2 (http://mariadb.org) - https://hub.docker.com/_/mariadb.
 
