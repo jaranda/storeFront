@@ -4,16 +4,16 @@
             "name": "Attach to Container & Debug",
             "type": "python",
             "request": "attach",
-            "connect": {
-                "host": "localhost",
-                "port": 5678
-            },
+            "port": 5678,
+            "host": "localhost",
             "pathMappings": [
                 {
                     "localRoot": "${workspaceFolder}/",
                     "remoteRoot": "/usr/src/app"
                 }
-            ]
+            ],
+            "preLaunchTask": "Compose Up",
+            "postDebugTask": "Compose Down"
         }
     ]
 }
