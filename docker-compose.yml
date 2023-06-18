@@ -1,0 +1,51 @@
+services:
+  applicationDBMS:
+    container_name: mysql
+    image: mariadb:10.11.2
+    command: '--default-authentication-plugin=mysql_native_password'
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'django_backend'
+      MYSQL_USER: 'django'
+      MYSQL_PORT: '3306'
+      MYSQL_PASSWORD: 'djangoUserPassword'
+      MYSQL_ROOT_PASSWORD: 'rootPassword'
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    ports:
+      - 8000:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=applicationDBMS
+    restart: always
+    depends_on:
+      - applicationDBMS
+
+  web:
+    build: './'
+    command: [
+      "sh",
+      "-c",
+      "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 manage.py runserver 0.0.0.0:8001 --nothreading --noreload"
+    ]
+    ports:
+      - "8001:8001"
+      - "5678:5678"
+    environment:
+      MYSQL_NAME: 'django_backend'
+      MYSQL_USER: 'django'
+      MYSQL_PASSWORD: 'djangoUserPassword'
+      MYSQL_HOST: 'applicationDBMS'
+      MYSQL_PORT: '3306'
+    volumes:
+      - type: bind
+        source: ./
+        target: /usr/src/app
+    depends_on:
+      - applicationDBMS
+
+volumes:
+  mariadb_data:
